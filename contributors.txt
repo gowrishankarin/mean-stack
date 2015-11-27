@@ -1,1 +1,4 @@
 Gowri Shankar
+
+TODO List
+Continuous integration through Travis. What is Travis?
