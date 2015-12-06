@@ -11,7 +11,8 @@ requires.function_two();
 
 var req_dirs = require('./req_dirs');
 
-var req_dirs_index = require('./req_dirs');
-
 req_dirs.function_two();
 req_dirs.function_one();
+
+req_dirs.reqs_function_one();
+req_dirs.reqs_function_two();
