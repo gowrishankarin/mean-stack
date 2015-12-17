@@ -18,15 +18,6 @@ p.name = 2;
 console.log(p.name);
 console.log(p.$isValid('name'));
 
-
-p.price.amount = 'Not a number';
-p.validate(function(err) {
-    // CastError because `price.amount` couldnt be
-    // casted to a number
-    console.log(err);
-});
-
-
 console.log(p.displayPrice);
 
 p.price.amount = 20;
@@ -34,5 +25,15 @@ console.log(p.displayPrice);
 
 console.log(JSON.stringify(p));
 
-var obj = p.toObject();
+var json = p.toJSON();
+console.log(json.displayPrice);
+
+var obj = p.toJSON();
 console.log(obj.displayPrice);
+
+p.price.amount = 'Not a number';
+p.validate(function(err) {
+    // CastError because `price.amount` couldnt be
+    // casted to a number
+    console.log(err);
+});

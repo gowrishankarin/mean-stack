@@ -55,9 +55,7 @@ schema.virtual('displayPrice').get(function() {
 });
 
 schema.set('toObject', { virtuals: true });
-schema.set('toJSON', { 'virtuals': true});
+schema.set('toJSON', { virtuals: true});
 
 module.exports = schema;
-
-module.exports = new mongoose.Schema(productSchema);
 module.exports.productSchema = productSchema;
