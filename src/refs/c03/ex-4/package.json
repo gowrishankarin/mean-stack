@@ -1,0 +1,7 @@
+{
+	"dependencies": {
+		"express": "4.13.3",
+		"mongoose": "4.3.4",
+		"wagner-core": "0.2.0"
+	}
+}
