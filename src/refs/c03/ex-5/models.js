@@ -5,8 +5,6 @@
 * @Last Modified time: 2016-01-09 22:53:32
 */
 
-'use strict';
-
 var mongoose = require('mongoose');
 
 module.exports = function(wagner) {

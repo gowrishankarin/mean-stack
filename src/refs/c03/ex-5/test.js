@@ -4,22 +4,16 @@
 * @Last Modified by:   Gowri Shankar
 * @Last Modified time: 2016-01-10 00:30:15
 */
-
-'use strict';
-
 var assert = require('assert');
 var express = require('express');
 var superagent = require('superagent');
 var wagner = require('wagner-core');
 
-
-var URL_ROOT = 'http://localhost:3000/v1';
+var URL_ROOT = 'http://localhost:3000';
 
 describe('Category API', function() {
 	var server;
 	var Category;
-
-
 
 	before(function() {
 		var app = express();
@@ -91,15 +85,3 @@ describe('Category API', function() {
 		});
 	});
 });
-
-
-
-
-
-
-
-
-
-
-
-
