@@ -2,11 +2,8 @@
 * @Author: Gowri Shankar
 * @Date:   2016-01-10 00:37:15
 * @Last Modified by:   Gowri Shankar
-* @Last Modified time: 2016-01-10 00:40:44
+* @Last Modified time: 2016-01-18 19:49:23
 */
-
-'use strict';
-
 var mongoose = require('mongoose');
 
 var categorySchema = {

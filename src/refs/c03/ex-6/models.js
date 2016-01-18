@@ -2,11 +2,8 @@
 * @Author: Gowri Shankar
 * @Date:   2016-01-10 00:37:15
 * @Last Modified by:   Gowri Shankar
-* @Last Modified time: 2016-01-10 00:45:55
+* @Last Modified time: 2016-01-18 19:48:54
 */
-
-'use strict';
-
 var mongoose = require('mongoose');
 var _ = require('underscore');
 

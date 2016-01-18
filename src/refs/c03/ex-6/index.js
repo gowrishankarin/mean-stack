@@ -2,11 +2,8 @@
 * @Author: Gowri Shankar
 * @Date:   2016-01-10 00:37:15
 * @Last Modified by:   Gowri Shankar
-* @Last Modified time: 2016-01-10 00:40:17
+* @Last Modified time: 2016-01-18 19:49:38
 */
-
-'use strict';
-
 var express = require('express');
 var wagner = require('wagner-core');
 

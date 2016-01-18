@@ -2,11 +2,8 @@
 * @Author: Gowri Shankar
 * @Date:   2016-01-10 00:37:15
 * @Last Modified by:   Gowri Shankar
-* @Last Modified time: 2016-01-10 00:56:50
+* @Last Modified time: 2016-01-18 21:56:57
 */
-
-'use strict';
-
 var mongoose = require('mongoose');
 var Category = require('./category');
 var fx = require('./fx');
