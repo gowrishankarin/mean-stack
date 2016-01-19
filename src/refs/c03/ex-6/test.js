@@ -46,7 +46,7 @@ describe('Category API', function() {
 	});
 
 	it('can load a product by id', function(done) {
-		var PRODUCT_ID = '000000000000000000000000000001';
+		var PRODUCT_ID = '000000000000000000000001';
 		var product = {
 			name: 'LG G4',
 			_id: PRODUCT_ID,

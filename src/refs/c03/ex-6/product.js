@@ -8,7 +8,6 @@ var mongoose = require('mongoose');
 var Category = require('./category');
 var fx = require('./fx');
 
-
 var productSchema = {
 	name: { type: String, required: true},
 	pictures: [{ type: String, match: /^http:\/\//i }],
@@ -17,7 +16,7 @@ var productSchema = {
 			type: Number,
 			required: true,
 			set: function(v) {
-				this,internal.approximatePriceUSD = 
+				this.internal.approximatePriceUSD = 
 					v / (fx()[this.price.currency] || 1);
 				return v;
 			}
@@ -27,8 +26,8 @@ var productSchema = {
 			enum: ['USD', 'EUR', 'GBP'],
 			required: true,
 			set: function(v) {
-				this.internal.approximatePriceUSD = 
-					this.price.amount / (fx()[v] || 1);
+				this.internal.approximatePriceUSD =
+				  	this.price.amount / (fx()[v] || 1);
 				return v;
 			}
 		}
