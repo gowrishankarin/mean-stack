@@ -21,7 +21,7 @@ describe('Product API', function() {
 		Product = models.Product;
 		User = models.User;
 
-		app.user(function(req, res, next) {
+		app.use(function(req, res, next) {
 			User.findOne({}, function(error, user) {
 				assert.ifError(error);
 				req.user = user;
@@ -29,9 +29,9 @@ describe('Product API', function() {
 			});
 		});
 
-		app.user(require('./api')(wagner));
+		app.use(require('./api')(wagner));
 
-		server = app.lister(3000);
+		server = app.listen(3000);
 	});
 
 	after(function() {
@@ -92,7 +92,7 @@ describe('Product API', function() {
 	    		username: 'garyS',
 	    		picture: 'http://pbs.twimg.com/profile_images/550304223036854272/Wwmwuh2t.png'
 	    	},
-	    	date: {
+	    	data: {
 	    		oauth: 'invalid',
 	    		cart: []
 	    	}
@@ -100,7 +100,7 @@ describe('Product API', function() {
 
 	    Category.create(categories, function(error) {
 	    	assert.ifError(error);
-	    	Product.create(products, funciton(error) {
+	    	Product.create(products, function(error) {
 	    		assert.ifError(error);
 	    		User.create(users, function(error) {
 	    			assert.ifError(error);
@@ -137,7 +137,7 @@ describe('Product API', function() {
 	it('can load users cart', function(done) {
 		var url = URL_ROOT + '/me';
 
-		USer.findOne({}, function(error, user) {
+		User.findOne({}, function(error, user) {
 			assert.ifError(error);
 			user.data.cart = [{
 				product: PRODUCT_ID, quantity:1

@@ -5,7 +5,7 @@ var status = require('http-status');
 module.exports = function(wagner) {
 	var api = express.Router();
 
-	api.user(bodyparser.json());
+	api.use(bodyparser.json());
 
 	api.put('me/cart', wagner.invoke(function(User) {
 		return function(req, res) {
@@ -16,7 +16,6 @@ module.exports = function(wagner) {
 					status(status.BAD_REQUEST).
 					json({ error: 'No cart specified!' });
 			}
-
 			req.user.data.cart = cart;
 
 			req.user.save(function(error, user) {
@@ -32,7 +31,7 @@ module.exports = function(wagner) {
 
 	}));
 
-	api.get('/me', function(req, rest) {
+	api.get('/me', function(req, res) {
 		if(!req.user) {
 			return res.
 				status(status.UNAUTHORIZED).
