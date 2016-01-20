@@ -10,4 +10,6 @@ module.exports = function(wagner) {
 	return {
 		Stripe: stripe
 	};
+
+	wagner.factory('fx', fx);
 };
