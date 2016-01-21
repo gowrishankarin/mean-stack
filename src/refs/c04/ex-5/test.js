@@ -17,6 +17,6 @@ describe('counterDirective', function() {
 		assert.equal(element.text(), 'You\'ve clicked this div 0 times');
 		element.find('div').click();
 		assert.equal(element.text(), 'You\'ve clicked this div 1 times');
-		assert.ok(true);
+		assert.ok(false);
 	});
 });
