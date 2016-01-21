@@ -2,16 +2,25 @@
 <head>
 	<title>Ex 1</title>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
 	<script type="text/javascript">
-	var app = angular.module('myApp', ['ng']);
+	var app = angular.module('myApp', ['ng', 'ngRoute']);
 	app.controller("MyController", function($scope) {
 		$scope.counter = 0;
+	});
+	app.config(function($routeProvider) {
+		$routeProvider.
+			when('/', {
+				template: '<h1>Home Page</h1><a ng-href=\"#/about\">About</a> \
+					<div ng-controller=\"MyController\" ng-mouseover="counter=counter + 1">You\'ve clicked this div {{counter}} times</div>'
+			}).
+			when('/about', {
+				template: '<a ng-href="#/">Back to Home Page</a>'
+			});
 	});
 	</script>
 </head>
 <body>
-	<div ng-controller="MyController" ng-mouseover="counter=counter + 1">
-		You've clicked this div {{counter}} times
-	</div>
+	<div ng-view></div>
 </body>
 </html>
