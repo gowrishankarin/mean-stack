@@ -50,13 +50,13 @@ module.exports = function(wagner) {
             }
 
             req.user.populate({ path: 'data.cart.product', 
-                model: ' Product' }, function(error, user) {
+                model: 'Product' }, function(error, user) {
                     var totalCostUSD = 0;
                     _.each(user.data.cart, function(item) {
                         totalCostUSD += item.product.internal.approximatePriceUSD * item.quantity;
                     });
 
-                    Stripe.charge.create(
+                    Stripe.charges.create(
                         {
                            amount: Math.ceil(totalCostUSD * 100),
                            currency: 'usd',

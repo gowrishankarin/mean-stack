@@ -28,7 +28,7 @@ module.exports = function(Config) {
 				});
 
 				if(callback) {
-					callback(null rates);
+					callback(null, rates);
 				}
 			} catch(e) {
 				if(callback) {
