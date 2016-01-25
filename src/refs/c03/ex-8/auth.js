@@ -6,11 +6,16 @@ function setupAuth(User, app) {
 		done(null, user._id);
 	});
 
+	passport.deserializeUser(function(id, done) {
+		User.findOne({ _id: id}).exec(done);
+	});
+
 	passport.use(new FacebookStrategy(
 		{
 			clientID: process.env.FACEBOOK_CLIENT_ID,
 			clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-			callbackURL: 'http://localhost:3000/auth/facebook/callback'
+			callbackURL: 'http://localhost:3000/auth/facebook/callback',
+			profileFields: ['id', 'email', 'link', 'locale']
 		},
 		function(accessToken, refreshToken, profile, done) {
 			if(!profile.emails || !profile.emails.length) {
@@ -35,7 +40,7 @@ function setupAuth(User, app) {
 	));
 
 	app.use(require('express-session')({
-		secret: 'this is a secret'
+		secret: 'garys'
 	}));
 
 	app.use(passport.initialize());
