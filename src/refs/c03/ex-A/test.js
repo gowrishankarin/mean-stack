@@ -166,7 +166,7 @@ describe('User Checkout', function() {
           });
     });
 
-    /*it('can check out', function(done) {
+    it('can check out', function(done) {
         var url = URL_ROOT + '/checkout';
 
         User.findOne({}, function(error, user) {
@@ -179,10 +179,10 @@ describe('User Checkout', function() {
                     post(url).
                     send({
                         stripeToken: {
-                            number: '',
+                            number: '4242424242424242',
                             cvc: '123',
                             exp_month: '12',
-                            exp_year: '2016'
+                            exp_year: '2017'
                         }
                     }).
                     end(function(error, res) {
@@ -202,14 +202,14 @@ describe('User Checkout', function() {
                             assert.equal(charge.amount, 2000*100);
                             done();
                         });
+                        done();
                     });
             });
         });
-    });*/
+    });
 
     it('can search by text', function(done) {
         var url = URL_ROOT + '/product/text/asus';
-        console.loc(url);
         superagent.get(url, function(error, res) {
             assert.ifError(error);
             assert.equal(res.status, status.OK);

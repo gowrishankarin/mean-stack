@@ -50,13 +50,13 @@ module.exports = function(wagner) {
             }
 
             req.user.populate({ path: 'data.cart.product', 
-                model: ' Product' }, function(error, user) {
+                model: 'Product' }, function(error, user) {
                     var totalCostUSD = 0;
                     _.each(user.data.cart, function(item) {
                         totalCostUSD += item.product.internal.approximatePriceUSD * item.quantity;
                     });
 
-                    Stripe.charge.create(
+                    Stripe.charges.create(
                         {
                            amount: Math.ceil(totalCostUSD * 100),
                            currency: 'usd',
@@ -87,6 +87,26 @@ module.exports = function(wagner) {
         };
     }));
 
+    api.get('/product/text/:query', wagner.invoke(function(Product) {
+        return function(req, res) {
+            Product.find({
+                $text: {
+                    $search: req.params.query
+                }}, {
+                score: {
+                    $meta: 'textScore'
+                }
+            }).
+            sort({
+                score: {
+                    $meta: 'textScore'
+                }
+            }).
+            limit(10).
+            exec(handleMany.bind(null, 'products', res));
+        };
+    }));
+
     return api;
 };
 
@@ -100,6 +120,19 @@ function handleOne(property, res, error, result) {
         return res.
         status(status.NOT_FOUND).
         json({ error: 'Not found' });
+    }
+
+    var json = {};
+    json[property] = result;
+    res.json(json);
+}
+
+function handleMany(property, res, error, result) {
+    if(error) {
+        console.log(error);
+        return res.
+            status(status.INTERNAL_SERVER_ERROR).
+            json({ error: error.toString() });
     }
 
     var json = {};
