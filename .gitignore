@@ -9,3 +9,6 @@ test/bower_components
 
 *.log
 *.tgz
+*.data
+
+config.json
