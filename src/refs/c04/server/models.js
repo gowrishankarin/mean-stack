@@ -2,7 +2,7 @@
 * @Author: Gowri Shankar
 * @Date:   2016-01-26 19:37:40
 * @Last Modified by:   Gowri Shankar
-* @Last Modified time: 2016-01-26 19:42:25
+* @Last Modified time: 2016-01-26 23:15:30
 */
 
 var mongoose = require('mongoose');
@@ -17,14 +17,14 @@ module.exports = function(wagner) {
 
     var Category =
         mongoose.model('Category', require('./category'), 'categories');
-    var Product =
-        mongoose.model('Product', require('./product'), 'products');
+    //var Product =
+        //mongoose.model('Product', require('./product'), 'products');
     var User =
         mongoose.model('User', require('./user'), 'users');
 
     var models = {
         Category: Category,
-        Product: Product,
+        //Product: Product,
         User: User
     };
 
@@ -34,6 +34,8 @@ module.exports = function(wagner) {
             return value;
         });
     });
+
+    wagner.factory('Product', require('./product'));
 
     return models;
 };

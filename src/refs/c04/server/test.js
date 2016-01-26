@@ -2,7 +2,7 @@
 * @Author: Gowri Shankar
 * @Date:   2016-01-26 19:37:40
 * @Last Modified by:   Gowri Shankar
-* @Last Modified time: 2016-01-26 22:23:26
+* @Last Modified time: 2016-01-26 23:16:29
 */
 
 var assert = require('assert');
@@ -35,11 +35,26 @@ describe('Part 3 Assesments Tests', function() {
         models = require('./models')(wagner);
         dependencies = require('./dependencies')(wagner);
 
+        var deps = wagner.invoke(function(Category, fx, Product, Stripe, User, Config) {
+        	return {
+        		Category: Category,
+        		fx: fx,
+        		Product: Product,
+        		Stripe: Stripe,
+        		User: User,
+        		Config: Config
+        	};
+        });
+
+
+
         // Make models available in tests
-        Category = models.Category;
-        Product = models.Product;
-        Stripe = dependencies.Stripe;
-        User = models.User;
+        Category = deps.Category;
+        Config = deps.Config;
+        fx = deps.fx;
+        Product = deps.Product;
+        Stripe = deps.Stripe;
+        User = deps.User;
 
         app.use(function(req, res, next) {
             User.findOne({}, function(error, user) {
@@ -48,6 +63,8 @@ describe('Part 3 Assesments Tests', function() {
                 next();
             });
         });
+
+
 
         app.use(require('./api')(wagner));
 
@@ -60,6 +77,7 @@ describe('Part 3 Assesments Tests', function() {
 	});
 
 	beforeEach(function(done) {
+
     	// Make sure categories are empty before each test
         Category.remove({}, function(error) {
             assert.ifError(error);
@@ -74,39 +92,40 @@ describe('Part 3 Assesments Tests', function() {
 	});
 
 	beforeEach(function(done) {
+
 		var categories = [
-		  { _id: 'Electronics' },
-		  { _id: 'Phones', parent: 'Electronics' },
-		  { _id: 'Laptops', parent: 'Electronics' },
-		  { _id: 'Bacon' }
+			{ _id: 'Electronics' },
+			{ _id: 'Phones', parent: 'Electronics' },
+			{ _id: 'Laptops', parent: 'Electronics' },
+			{ _id: 'Bacon' }
 		];
 
 		var products = [
-		  {
-		      name: 'LG G4',
-		      category: { _id: 'Phones', ancestors: ['Electronics', 'Phones'] },
-		      price: {
-		          amount: 300,
-		          currency: 'USD'
-		      }
-		  },
-		  {
-		      _id: PRODUCT_ID,
-		      name: 'Asus Zenbook Prime',
-		      category: { _id: 'Laptops', ancestors: ['Electronics', 'Laptops'] },
-		      price: {
-		          amount: 2000,
-		          currency: 'USD'
-		      }
-		  },
-		  {
-		      name: 'Flying Pigs Farm Pasture Raised Pork Bacon',
-		      category: { _id: 'Bacon', ancestors: ['Bacon'] },
-		      price: {
-		          amount: 20,
-		          currency: 'USD'
-		      }
-		  }
+			{
+			  name: 'LG G4',
+			  category: { _id: 'Phones', ancestors: ['Electronics', 'Phones'] },
+			  price: {
+			      amount: 300,
+			      currency: 'USD'
+			  }
+			},
+			{
+			  _id: PRODUCT_ID,
+			  name: 'Asus Zenbook Prime',
+			  category: { _id: 'Laptops', ancestors: ['Electronics', 'Laptops'] },
+			  price: {
+			      amount: 2000,
+			      currency: 'USD'
+			  }
+			},
+			{
+			  name: 'Flying Pigs Farm Pasture Raised Pork Bacon',
+			  category: { _id: 'Bacon', ancestors: ['Bacon'] },
+			  price: {
+			      amount: 20,
+			      currency: 'USD'
+			  }
+			}
 		];
 
 		var users = [{
@@ -123,7 +142,7 @@ describe('Part 3 Assesments Tests', function() {
 		Category.create(categories, function(error) {
 		  assert.ifError(error);
 		  Product.create(products, function(error) {
-		      assert.ifError(error);
+		    assert.ifError(error);
 		      User.create(users, function(error) {
 		          assert.ifError(error);
 		          done();
@@ -133,8 +152,9 @@ describe('Part 3 Assesments Tests', function() {
 	});
 
 
-	/*Category*/
+	// Category
 	it('can load a cateogry by id', function(done) {
+
 		// Create a single category
 		Category.create({ _id: 'Electronics'}, function(error, doc) {
 			assert.ifError(error);
@@ -181,7 +201,7 @@ describe('Part 3 Assesments Tests', function() {
 		});
 	});
 
-	/* Product */
+	// Product
 	it('can load a product by id', function(done) {
 		var PRODUCT_ID = '000000000000000000000001';
 		var product = {
@@ -212,6 +232,48 @@ describe('Part 3 Assesments Tests', function() {
 	});
 
 	it('can load all products in a category with sub-categories', function(done) {
+		var categories = [
+			{_id: 'Electronics'},
+			{ _id: 'Phones', parent: 'Electronics' },
+			{ _id: 'Laptops', parent: 'Electronics' },
+			{ _id: 'Bacon' }
+		];
+
+		var products = [
+			{
+				name: 'LG G4',
+				category: {
+					_id: 'Phones',
+					ancestors: ['Electronics', 'Phones']
+				},
+				price: {
+					amount: 300,
+					currency: 'USD'
+				}
+			},
+			{
+				name: 'Asus Zenbook Prime',
+				category: {
+					_id: 'Laptops',
+					ancestors: ['Electronics', 'Laptops']
+				},
+				price: {
+					amount: 2000,
+					currency: 'USD'
+				}
+			},
+			{
+				name: 'Flying Pigs Farm Pasture Raised Pork Bacon',
+				category: {
+					_id: 'Bacon',
+					ancestors: ['Bacon']
+				},
+				price: {
+					amount: 20,
+					currency: 'USD'
+				}
+			}
+		];
 		Category.create(categories, function(error, categories) {
 			assert.ifError(error);
 			Product.create(products, function(error, products) {
@@ -245,7 +307,7 @@ describe('Part 3 Assesments Tests', function() {
 		});
 	});
 
-	/* User */
+	// User
 	it('can save users cart', function(done) {
 		var url = URL_ROOT + '/me/cart';
 		superagent.
@@ -294,7 +356,7 @@ describe('Part 3 Assesments Tests', function() {
           });
 	});
 
-	/* Stripe */
+	// Stripe
 	it('can check out', function(done) {
        var url = URL_ROOT + '/checkout';
 
@@ -337,7 +399,7 @@ describe('Part 3 Assesments Tests', function() {
         });
 	});
 
-	/* Search */
+	// Search
 	it('can search by text', function(done) {
         var url = URL_ROOT + '/product/text/asus';
         superagent.get(url, function(error, res) {
