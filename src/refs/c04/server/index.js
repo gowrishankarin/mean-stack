@@ -17,7 +17,7 @@ wagner.invoke(require('./auth'), { app: app });
 
 app.use('/api/v1', require('./api')(wagner));
 
-app.user(express.static('../', {
+app.use(express.static('../', {
 	maxAge: 4 * 60 * 60 * 1000
 }));
 

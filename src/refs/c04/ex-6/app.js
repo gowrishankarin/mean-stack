@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ng']);
 
-app.directive('userMenu', funciton() {
+app.directive('userMenu', function() {
 	return {
 		controller: 'MyHttpController',
 		template: '<div class="user" ng-show="user">' +

@@ -9,7 +9,7 @@ _.each(controllers, function(controller, name) {
 	app.controller(name, controller);
 });
 
-_each(directives, function(directive, name) {
+_.each(directives, function(directive, name) {
 	app.directive(name, directive);
 });
 

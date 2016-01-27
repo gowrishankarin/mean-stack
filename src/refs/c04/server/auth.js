@@ -51,7 +51,7 @@ function setupAuth(User, app) {
 	));
 
 	app.use(require('express-session')({
-		secret: 'this is a secret'
+		secret: 'garyS'
 	}));
 
 	app.use(passport.initialize());
