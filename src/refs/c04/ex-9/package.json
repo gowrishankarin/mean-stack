@@ -3,6 +3,7 @@
 		"browserify": "13.0.0",
 		"gulp": "3.9.0",
 		"gulp-browserify": "0.5.1",
+		"mocha": "2.4.3",
 		"karma": "0.13.19",
 		"karma-chai": "0.1.0",
 		"karma-chrome-launcher": "0.2.2",

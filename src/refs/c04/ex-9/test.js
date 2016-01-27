@@ -37,5 +37,5 @@ describe('Nav Bar', function() {
 			assert.equal(element.find('.user-info .user img').attr('src'), 'myPic');
 			done();
 		});
-	})
-})
+	});
+});
