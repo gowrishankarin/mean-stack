@@ -24,6 +24,9 @@ app.config(function($routeProvider) {
 		when('/category/:category', {
 			templateUrl: '/ex-9/templates/category_view.html'
 		}).
+		when('/checkout', {
+			template: '<checkout></checkout>'
+		}).
 		when('/product/:id', {
 			template: '<product-details></product-details>'
 		});
