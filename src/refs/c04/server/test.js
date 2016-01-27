@@ -102,29 +102,29 @@ describe('Part 3 Assesments Tests', function() {
 
 		var products = [
 			{
-			  name: 'LG G4',
-			  category: { _id: 'Phones', ancestors: ['Electronics', 'Phones'] },
-			  price: {
-			      amount: 300,
-			      currency: 'USD'
-			  }
+				name: 'LG G4',
+				category: { _id: 'Phones', ancestors: ['Electronics', 'Phones'] },
+				price: {
+					amount: 300,
+					currency: 'USD'
+				}
 			},
 			{
-			  _id: PRODUCT_ID,
-			  name: 'Asus Zenbook Prime',
-			  category: { _id: 'Laptops', ancestors: ['Electronics', 'Laptops'] },
-			  price: {
-			      amount: 2000,
-			      currency: 'USD'
-			  }
+				_id: PRODUCT_ID,
+				name: 'Asus Zenbook Prime',
+				category: { _id: 'Laptops', ancestors: ['Electronics', 'Laptops'] },
+				price: {
+					amount: 2000,
+					currency: 'USD'
+				}
 			},
 			{
-			  name: 'Flying Pigs Farm Pasture Raised Pork Bacon',
-			  category: { _id: 'Bacon', ancestors: ['Bacon'] },
-			  price: {
-			      amount: 20,
-			      currency: 'USD'
-			  }
+				name: 'Flying Pigs Farm Pasture Raised Pork Bacon',
+				category: { _id: 'Bacon', ancestors: ['Bacon'] },
+				price: {
+					amount: 20,
+					currency: 'USD'
+				}
 			}
 		];
 
@@ -156,9 +156,9 @@ describe('Part 3 Assesments Tests', function() {
 	it('can load a cateogry by id', function(done) {
 
 		// Create a single category
-		Category.create({ _id: 'Electronics'}, function(error, doc) {
+		Category.create({ _id: 'Books'}, function(error, doc) {
 			assert.ifError(error);
-			var url = URL_ROOT + '/category/id/Electronics';
+			var url = URL_ROOT + '/category/id/Books';
 
 			superagent.get(url, function(error, res) {
 				assert.ifError(error);
@@ -169,7 +169,7 @@ describe('Part 3 Assesments Tests', function() {
 				});
 
 				assert.ok(result.category);
-				assert.equal(result.category._id, 'Electronics');
+				assert.equal(result.category._id, 'Books');
 				done();
 			});
 		});
@@ -177,25 +177,24 @@ describe('Part 3 Assesments Tests', function() {
 
 	it('can load all categories that have a certain parent', function(done) {
 		var categories = [
-			{ _id: 'Electronics' },
-			{ _id: 'Phones', parent: 'Electronics' },
-			{ _id: 'Laptops', parent: 'Electronics' },
-			{ _id: 'Bacon' }
+			{ _id: 'Cosmetics' },
+			{ _id: 'Nail Polish', parent: 'Cosmetics' },
+			{ _id: 'Talcum', parent: 'Cosmetics' },
+			{ _id: 'Cleaning Agent' }
 		];
 
 		Category.create(categories, function(error, categories) {
-			var url = URL_ROOT + '/category/parent/Electronics';
+			var url = URL_ROOT + '/category/parent/Cosmetics';
 			superagent.get(url, function(error, res) {
-				assert.ifError(error);
+				assert.ifError("E1:" + error);
 				var result;
-
 				assert.doesNotThrow(function() {
 					result = JSON.parse(res.text);
 				});
 
 				assert.equal(result.categories.length, 2);
-				assert.equal(result.categories[0]._id, 'Laptops');
-				assert.equal(result.categories[1]._id, 'Phones');
+				assert.equal(result.categories[0]._id, 'Nail Polish');
+				assert.equal(result.categories[1]._id, 'Talcum');
 				done();
 			});
 		});
@@ -203,7 +202,7 @@ describe('Part 3 Assesments Tests', function() {
 
 	// Product
 	it('can load a product by id', function(done) {
-		var PRODUCT_ID = '000000000000000000000001';
+		var PRODUCT_ID = '000000000000000000000002';
 		var product = {
 			name: 'LG G4',
 			_id: PRODUCT_ID,
@@ -233,18 +232,18 @@ describe('Part 3 Assesments Tests', function() {
 
 	it('can load all products in a category with sub-categories', function(done) {
 		var categories = [
-			{_id: 'Electronics'},
-			{ _id: 'Phones', parent: 'Electronics' },
-			{ _id: 'Laptops', parent: 'Electronics' },
-			{ _id: 'Bacon' }
+			{_id: 'Shoes'},
+			{ _id: 'Moccassins', parent: 'Shoes' },
+			{ _id: 'Boat Shoes', parent: 'Shoes' },
+			{ _id: 'Mint' }
 		];
 
 		var products = [
 			{
-				name: 'LG G4',
+				name: 'Cole Hann',
 				category: {
-					_id: 'Phones',
-					ancestors: ['Electronics', 'Phones']
+					_id: 'Moccassins',
+					ancestors: ['Shoes', 'Moccassins']
 				},
 				price: {
 					amount: 300,
@@ -252,10 +251,10 @@ describe('Part 3 Assesments Tests', function() {
 				}
 			},
 			{
-				name: 'Asus Zenbook Prime',
+				name: 'Crocs',
 				category: {
-					_id: 'Laptops',
-					ancestors: ['Electronics', 'Laptops']
+					_id: 'Boat Shoes',
+					ancestors: ['Shoes', 'Boat Shoes']
 				},
 				price: {
 					amount: 2000,
@@ -263,10 +262,10 @@ describe('Part 3 Assesments Tests', function() {
 				}
 			},
 			{
-				name: 'Flying Pigs Farm Pasture Raised Pork Bacon',
+				name: 'Tic Tac',
 				category: {
-					_id: 'Bacon',
-					ancestors: ['Bacon']
+					_id: 'Mint',
+					ancestors: ['Mint']
 				},
 				price: {
 					amount: 20,
@@ -278,7 +277,7 @@ describe('Part 3 Assesments Tests', function() {
 			assert.ifError(error);
 			Product.create(products, function(error, products) {
 				assert.ifError(error);
-				var url = URL_ROOT + '/product/category/Electronics';
+				var url = URL_ROOT + '/product/category/Shoes';
 
 				superagent.get(url, function(error, res) {
 					assert.ifError(error);
@@ -287,10 +286,10 @@ describe('Part 3 Assesments Tests', function() {
 						result = JSON.parse(res.text);
 					});
 					assert.equal(result.products.length, 2);
-					assert.equal(result.products[0].name, 'Asus Zenbook Prime');
-					assert.equal(result.products[1].name, 'LG G4');
+					assert.equal(result.products[0].name, 'Cole Hann');
+					assert.equal(result.products[1].name, 'Crocs');
 
-					var url = URL_ROOT + '/product/category/Electronics?price=1';
+					var url = URL_ROOT + '/product/category/Shoes?price=1';
 					superagent.get(url, function(error, res) {
 						assert.ifError(error);
 						var result;
@@ -298,8 +297,8 @@ describe('Part 3 Assesments Tests', function() {
 							result = JSON.parse(res.text);
 						});
 						assert.equal(result.products.length, 2);
-						assert.equal(result.products[0].name, 'LG G4');
-						assert.equal(result.products[1].name, 'Asus Zenbook Prime');
+						assert.equal(result.products[0].name, 'Cole Hann');
+						assert.equal(result.products[1].name, 'Crocs');
 						done();
 					}); 
 				});
@@ -401,7 +400,7 @@ describe('Part 3 Assesments Tests', function() {
 
 	// Search
 	it('can search by text', function(done) {
-        var url = URL_ROOT + '/product/text/asus';
+        var url = URL_ROOT + '/product/text/tic';
         superagent.get(url, function(error, res) {
             assert.ifError(error);
             assert.equal(res.status, status.OK);
@@ -412,7 +411,7 @@ describe('Part 3 Assesments Tests', function() {
             });
             assert.equal(results.length, 1);
             assert.equal(results[0]._id, PRODUCT_ID);
-            assert.equal(results[0].name, 'Asus Zenbook Prime');
+            assert.equal(results[0].name, 'Tic Tac');
             done();
         }); 
 	});
