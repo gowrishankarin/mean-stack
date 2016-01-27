@@ -25,8 +25,14 @@ exports.CategoryProductsController = function($scope, $routeParams, $http) {
 				$scope.products = data.products;
 			});
 
-	}
-}
+	};
+
+	$scope.load();
+
+	setTimeout(function() {
+		$scope.$emit('CategoryProductsController');
+	}, 0);
+};
 
 exports.CategoryTreeController = function($scope, $routeParams, $http) {
 	var encoded = encodeURIComponent($routeParams.category);
@@ -44,7 +50,7 @@ exports.CategoryTreeController = function($scope, $routeParams, $http) {
 		setTimeout(function() {
 			$scope.$emit('CategoryTreeController');
 		}, 0);
-}
+};
 
 exports.UserMenuController = function($scope, $user) {
 	$scope.user = $user;
