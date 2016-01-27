@@ -1,3 +1,10 @@
+exports.CategoryTree = function() {
+	return {
+		controller: 'CategoryTreeController',
+		templateUrl: '/ex-9/templates/category_tree.html'
+	}
+};
+
 exports.userMenu = function() {
 	return {
 		controller: 'UserMenuController',

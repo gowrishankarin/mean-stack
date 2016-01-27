@@ -1,3 +1,21 @@
+exports.CategoryTreeController = function($scope, $routeParams, $http) {
+	var encoded = encodeURIComponent($routeParams.category);
+	$http.
+		get('/api/v1/category/id/' + encoded).
+		success(function(data) {
+			$scope.category = data.category;
+			$http.
+				get('/api/v1/category/id' + encoded).
+				success(function(data) {
+					$scope.children = data.categories;
+				});
+		});
+
+		setTimeout(function() {
+			$scope.$emit('CategoryTreeController');
+		}, 0);
+}
+
 exports.UserMenuController = function($scope, $user) {
 	$scope.user = $user;
 
