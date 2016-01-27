@@ -1,3 +1,10 @@
+exports.CategoryProducts = function() {
+	return {
+		controller: 'CategoryProductsController',
+		templateUrl: '/ex-9/templates/category_products.html'
+	}
+}
+
 exports.CategoryTree = function() {
 	return {
 		controller: 'CategoryTreeController',
