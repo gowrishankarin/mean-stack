@@ -186,15 +186,15 @@ describe('Part 3 Assesments Tests', function() {
 		Category.create(categories, function(error, categories) {
 			var url = URL_ROOT + '/category/parent/Cosmetics';
 			superagent.get(url, function(error, res) {
-				assert.ifError("E1:" + error);
+				assert.ifError(error);
 				var result;
 				assert.doesNotThrow(function() {
 					result = JSON.parse(res.text);
 				});
 
 				assert.equal(result.categories.length, 2);
-				assert.equal(result.categories[0]._id, 'Talcum');
-				assert.equal(result.categories[1]._id, 'Nail Polish');
+				assert.equal(result.categories[1]._id, 'Talcum');
+				assert.equal(result.categories[0]._id, 'Nail Polish');
 				done();
 			});
 		});
