@@ -10,17 +10,32 @@ describe('Nav Bar', function() {
 		intercepts = {};
 
 		injector.invoke(function($rootScope, $compile, $httpBackend) {
-			
+			scope = $rootScope.$new();
+
+			$httpBackend.whenGET(/.*\/templates\/.*/i).passThrough();
+			httpBackend = $httpBackend;
+
+			element = $compile('<user-menu></user-menu>')(scope);
+			scope.$apply();
 		});
 	});
 
 	if('shows logged in users profile picture', function(done) {
 		httpBackend.expectGET('/api/v1/me').respond({
-
+			user: {
+				profile: {
+					picture: 'myPic'
+				}
+			}
 		});
 
 		scope.$on('NavBarController', function() {
+			assert.equal(element.find('.title').text().trip(), 'MEAN Retail');
 
+			httpBackend.flush();
+			assert.notEqual(element.find('.user-info .user').css('display'), 'none');
+			assert.equal(element.find('.user-info .user img').attr('src'), 'myPic');
+			done();
 		});
 	})
 })

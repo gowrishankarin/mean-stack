@@ -6,7 +6,7 @@ var _ = require('underscore');
 var components = angular.module('mean-retail.components', ['ng']);
 
 _.each(controllers, function(controllers, name) {
-	components.controller(name, controller);
+	components.controller(name, controllers);
 });
 
 _.each(directives, function(directive, name) {

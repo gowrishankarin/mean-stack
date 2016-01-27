@@ -16,3 +16,11 @@ _.each(directives, function(directive, name) {
 _.each(services, function(factory, name) {
 	app.factory(name, factory);
 });
+
+var app = angular.module('module-retail', ['mean-retail.components', 'ngRoute']);
+app.config((function($routeProvider) {
+	$routeProvider.
+		when('/product/:id', {
+			template: '<product-details></product-details>'
+		});
+}));
