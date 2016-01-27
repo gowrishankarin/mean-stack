@@ -34,7 +34,7 @@ module.exports = function(wagner) {
 		};
 	}));
 
-	api.get('category/parent/:id', wagner.invoke(function(Category) {
+	api.get('/category/parent/:id', wagner.invoke(function(Category) {
 		return function(req, res) {
 			Category.
 				find({ parent: req.params.id }).
@@ -165,7 +165,7 @@ module.exports = function(wagner) {
 	}));
 
 	/* Search */
-	api.get('product/text/:query', wagner.invoke(function(Product) {
+	api.get('/product/text/:query', wagner.invoke(function(Product) {
         return function(req, res) {
             Product.find({
                 $text: {

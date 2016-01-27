@@ -193,8 +193,8 @@ describe('Part 3 Assesments Tests', function() {
 				});
 
 				assert.equal(result.categories.length, 2);
-				assert.equal(result.categories[0]._id, 'Nail Polish');
-				assert.equal(result.categories[1]._id, 'Talcum');
+				assert.equal(result.categories[0]._id, 'Talcum');
+				assert.equal(result.categories[1]._id, 'Nail Polish');
 				done();
 			});
 		});
@@ -400,7 +400,7 @@ describe('Part 3 Assesments Tests', function() {
 
 	// Search
 	it('can search by text', function(done) {
-        var url = URL_ROOT + '/product/text/tic';
+        var url = URL_ROOT + '/product/text/asus';
         superagent.get(url, function(error, res) {
             assert.ifError(error);
             assert.equal(res.status, status.OK);
@@ -411,7 +411,7 @@ describe('Part 3 Assesments Tests', function() {
             });
             assert.equal(results.length, 1);
             assert.equal(results[0]._id, PRODUCT_ID);
-            assert.equal(results[0].name, 'Tic Tac');
+            assert.equal(results[0].name, 'Asus Zenbook Prime');
             done();
         }); 
 	});
