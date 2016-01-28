@@ -70,7 +70,7 @@ exports.CategoryTreeController = function($scope, $routeParams, $http) {
 		success(function(data) {
 			$scope.category = data.category;
 			$http.
-				get('/api/v1/category/id/' + encoded).
+				get('/api/v1/category/parent/' + encoded).
 				success(function(data) {
 					$scope.children = data.categories;
 				});
@@ -88,7 +88,7 @@ exports.CheckoutController = function($scope, $user, $http) {
 		$http.
 			put('/api/v1/me/cart/', $user.user).
 			success(function(data) {
-				$scoped.updated = true;
+				$scope.updated = true;
 			});
 	};
 
