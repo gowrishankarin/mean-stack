@@ -1,4 +1,4 @@
-exports.AddToCartController = function($scope, $http, $user, $timout) {
+exports.AddToCartController = function($scope, $http, $user, $timeout) {
 	$scope.addToCart = function(product) {
 		var obj = {
 			product: product._id,
@@ -11,7 +11,7 @@ exports.AddToCartController = function($scope, $http, $user, $timout) {
 			put('/api/v1/me/cart', {
 				data: {
 					data: {
-						$user.user.data.cart
+						cart: $user.user.data.cart
 					}
 				}
 			}).
@@ -70,7 +70,7 @@ exports.CategoryTreeController = function($scope, $routeParams, $http) {
 		success(function(data) {
 			$scope.category = data.category;
 			$http.
-				get('/api/v1/category/id' + encoded).
+				get('/api/v1/category/id/' + encoded).
 				success(function(data) {
 					$scope.children = data.categories;
 				});
@@ -86,13 +86,13 @@ exports.CheckoutController = function($scope, $user, $http) {
 
 	$scope.updateCart = function() {
 		$http.
-			put('/api/v1/me/cart', $user.user).
+			put('/api/v1/me/cart/', $user.user).
 			success(function(data) {
 				$scoped.updated = true;
 			});
 	};
 
-	Stripe.setPublishableKey('');
+	Stripe.setPublishableKey('pk_test_ZXEKveU9MPrqWa3TUJWfcE2f');
 
 	$scope.stripeToken = {
 		number: '4242424242424242',
