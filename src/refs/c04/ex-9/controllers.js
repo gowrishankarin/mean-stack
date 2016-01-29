@@ -1,5 +1,5 @@
-exports.AddToCartController = function($scope, $http, $user, $timeout) {
-	$scope.addToCart = function(product) {
+exports.AddToFavsController = function($scope, $http, $user, $timeout) {
+	$scope.addToFavs = function(product) {
 		var obj = {
 			product: product._id,
 			quantity: 1
