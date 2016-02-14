@@ -11,8 +11,6 @@ var Stripe = require('stripe');
 var Config = require('./config.json')
 
 module.exports = function(wagner) {
-    var stripe =
-
     // TODO: Make Stripe depend on the Config service and use its `stripeKey`
     // property to get the Stripe API key.
     wagner.factory('Stripe', function() {

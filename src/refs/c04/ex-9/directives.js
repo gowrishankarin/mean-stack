@@ -1,7 +1,7 @@
-exports.addToCart = function() {
+exports.addToFavs = function() {
 	return {
-		controller: 'AddToCartController',
-		templateUrl: '/ex-9/templates/add_to_cart.html'
+		controller: 'AddToFavsController',
+		templateUrl: '/ex-9/templates/add_to_favs.html'
 	};
 };
 

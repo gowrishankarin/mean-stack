@@ -2,7 +2,7 @@
 	<div class="crumbs">
 		<div class="crumb" ng-repeat="ancestor in category.ancestors">
 			<a ng-href="#/category/{{ancestor}}">
-				{{ancetor}}
+				{{ancestor}}
 			</a>
 			<div class="divider" ng-hide="$last">
 				/
@@ -12,7 +12,7 @@
 			<div class="divider">
 				/
 			</div>
-			<div class="child-arrow" ng-init="display = flase;"
+			<div class="child-arrow" ng-init="display = false;"
 				ng-click="display = !display;">
 				<i class="fa fa-chevron-down"></i>
 			</div>

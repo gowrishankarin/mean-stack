@@ -129,25 +129,25 @@ describe('Part 3 Assesments Tests', function() {
 		];
 
 		var users = [{
-		  profile: {
-		      username: 'vkarpov15',
-		      picture: 'http://pbs.twimg.com/profile_images/550304223036854272/Wwmwuh2t.png'
-		  },
-		  data: {
-		      oauth: 'invalid',
-		      cart: []
-		  }
+			profile: {
+				username: 'vkarpov15',
+				picture: 'http://pbs.twimg.com/profile_images/550304223036854272/Wwmwuh2t.png'
+			},
+			data: {
+				oauth: 'invalid',
+				cart: []
+			}
 		}];
 
 		Category.create(categories, function(error) {
-		  assert.ifError(error);
-		  Product.create(products, function(error) {
-		    assert.ifError(error);
-		      User.create(users, function(error) {
-		          assert.ifError(error);
-		          done();
-		      });
-		  });
+			assert.ifError(error);
+			Product.create(products, function(error) {
+				assert.ifError(error);
+				User.create(users, function(error) {
+					assert.ifError(error);
+					done();
+				});
+			});
 		});
 	});
 
